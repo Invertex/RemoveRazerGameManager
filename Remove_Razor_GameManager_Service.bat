@@ -1,6 +1,13 @@
 @Echo off
 ECHO Removing Game Manager Service dependency from Registry...
 reg delete "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Razer Synapse Service" /v DependOnService /f
+IF ERRORLEVEL 1 ( 
+	ECHO No Admin priviledges...
+	ECHO Please right-click this file and select "Run as administrator".
+	ECHO.
+	pause
+	exit
+)
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Razer Synapse Service" /v DependOnService /t Reg_Sz /d RzActionSvc /f
 ECHO.
 
